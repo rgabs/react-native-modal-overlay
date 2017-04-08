@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal-overlay",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "An overlay component built using Native Modal component which works perfectly with IOS and Android and is totally customizable",
   "main": "index.js",
   "scripts": {

@@ -1,13 +1,12 @@
 import React, {PropTypes} from 'react';
 import {Modal, TouchableWithoutFeedback, View} from 'react-native';
-import styles from './Overlay.styles';
 
 const styles = {
   container: {
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: rgba(37, 8, 10, 0.78)
+    backgroundColor: 'rgba(37, 8, 10, 0.78)'
   },
   innerContainer: {
     alignItems: 'center',
@@ -24,7 +23,9 @@ class Overlay extends React.Component {
     animationType: PropTypes.string,
     visible: PropTypes.bool,
     closeOnTouchOutside: PropTypes.bool,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    containerStyle: PropTypes.object,
+    childrenWrapperStyle: PropTypes.object,
   }
   static defaultProps = {
     children: null,
@@ -45,7 +46,7 @@ class Overlay extends React.Component {
   _stopPropagation = (e) => e.stopPropagation()
 
   render () {
-    const {animationType, closeOnTouchOutside, children} = this.props;
+    const {animationType, closeOnTouchOutside, children, containerStyle, childrenWrapperStyle} = this.props;
     return (
       <Modal
           animationType={animationType}
@@ -53,9 +54,9 @@ class Overlay extends React.Component {
           visible={this.state.visible}
           onRequestClose={this._hideModal}>
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
-          <View style={styles.container}>
+          <View style={[styles.container, containerStyle]}>
             <TouchableWithoutFeedback onPress={this._stopPropagation}>
-              <View style={styles.innerContainer}>
+              <View style={[styles.innerContainer, childrenWrapperStyle]}>
                 {children}
               </View>
             </TouchableWithoutFeedback>
