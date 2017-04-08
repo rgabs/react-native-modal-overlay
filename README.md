@@ -10,7 +10,7 @@ An overlay component built using native Modal which can be invoked from anywhere
 
 ## GIFs
 
-![GIF](./gifs/demo.gif)
+![Full GIF](./gifs/demo.gif "Full GIF")
 
 ## Props
 - animationType: Animation Type for modal/overlay. Can be `fade` or `slide`.
