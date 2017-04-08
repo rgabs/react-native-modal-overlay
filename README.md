@@ -25,15 +25,16 @@ An overlay component built using native Modal which can be invoked from anywhere
 
 ## Example Usage
 ```
+import Overlay from 'react-native-modal-overlay';
 
-<Modal visible={this.state.modalVisible}
+<Overlay visible={this.state.modalVisible}
       closeOnTouchOutside animationType="fade"
       containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
       childrenWrapperStyle={{backgroundColor: '#eee'}} >
     ...
     <Text>Some Modal Content</Text>
     ...
-</Modal>
+</Overlay>
 
 ```
 
