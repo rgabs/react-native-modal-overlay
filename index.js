@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Modal, TouchableWithoutFeedback, View} from 'react-native';
+import {Modal, Platform, TouchableWithoutFeedback, View} from 'react-native';
 
 const styles = {
   container: {
@@ -24,15 +24,29 @@ class Overlay extends React.Component {
     visible: PropTypes.bool,
     closeOnTouchOutside: PropTypes.bool,
     onClose: PropTypes.func,
+    onShow: PropTypes.func,
     containerStyle: PropTypes.object,
     childrenWrapperStyle: PropTypes.object,
+    transparent: PropTypes.bool,
+    // android-specific
+    hardwareAccelerated: PropTypes.bool,
+    // ios-specific
+    onOrientationChange: PropTypes.func,
+    presentationStyle: PropTypes.oneOf(['fullScreen', 'pageSheet', 'formSheet', 'overFullScreen']),
+    supportedOrientations: PropTypes.oneOf(['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right']),
   }
   static defaultProps = {
     children: null,
     animationType: 'fade',
     visible: false,
     closeOnTouchOutside: false,
-    onClose: () => {}
+    onClose: () => {},
+    onShow: () => {},
+    transparent: true,
+    hardwareAccelerated: Platform.OS === 'android' ? false : undefined,
+    presentationStyle: Platform.OS === 'ios' ? 'overFullScreen' : undefined,
+    supportedOrientations: Platform.OS === 'ios' ? ['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right'] : undefined,
+    onOrientationChange: Platform.OS === 'ios' ? () => {} : undefined,
   }
   componentWillReceiveProps (newProps) {
     this.setState({visible: newProps.visible});
@@ -46,13 +60,31 @@ class Overlay extends React.Component {
   _stopPropagation = (e) => e.stopPropagation()
 
   render () {
-    const {animationType, closeOnTouchOutside, children, containerStyle, childrenWrapperStyle} = this.props;
+    const {
+      animationType,
+      onShow,
+      closeOnTouchOutside,
+      children,
+      containerStyle,
+      childrenWrapperStyle,
+      transparent,
+      hardwareAccelerated,
+      presentationStyle,
+      supportedOrientations,
+      onOrientationChange,
+    } = this.props;
     return (
       <Modal
-          animationType={animationType}
-          transparent
-          visible={this.state.visible}
-          onRequestClose={this._hideModal}>
+        animationType={animationType}
+        transparent={transparent}
+        visible={this.state.visible}
+        onRequestClose={this._hideModal}
+        onShow={onShow}
+        hardwareAccelerated={hardwareAccelerated}
+        presentationStyle={presentationStyle}
+        supportedOrientations={supportedOrientations}
+        onOrientationChange={onOrientationChange}
+      >
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
           <View style={[styles.container, containerStyle]}>
             <TouchableWithoutFeedback onPress={this._stopPropagation}>
