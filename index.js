@@ -33,7 +33,7 @@ class Overlay extends React.Component {
     // ios-specific
     onOrientationChange: PropTypes.func,
     presentationStyle: PropTypes.oneOf(['fullScreen', 'pageSheet', 'formSheet', 'overFullScreen']),
-    supportedOrientations: PropTypes.oneOf(['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right']),
+    supportedOrientations: PropTypes.arrayOf(PropTypes.oneOf(['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right'])),
   }
   static defaultProps = {
     children: null,
