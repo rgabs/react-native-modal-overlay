@@ -60,30 +60,14 @@ class Overlay extends React.Component {
   _stopPropagation = (e) => e.stopPropagation()
 
   render () {
-    const {
-      animationType,
-      onShow,
-      closeOnTouchOutside,
-      children,
-      containerStyle,
-      childrenWrapperStyle,
-      transparent,
-      hardwareAccelerated,
-      presentationStyle,
-      supportedOrientations,
-      onOrientationChange,
-    } = this.props;
+    const {animationType, closeOnTouchOutside, children, containerStyle, childrenWrapperStyle, ...extraProps} = this.props;
     return (
       <Modal
+        {...extraProps}
         animationType={animationType}
-        transparent={transparent}
+        transparent
         visible={this.state.visible}
         onRequestClose={this._hideModal}
-        onShow={onShow}
-        hardwareAccelerated={hardwareAccelerated}
-        presentationStyle={presentationStyle}
-        supportedOrientations={supportedOrientations}
-        onOrientationChange={onOrientationChange}
       >
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
           <View style={[styles.container, containerStyle]}>
