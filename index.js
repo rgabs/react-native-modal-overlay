@@ -24,16 +24,8 @@ class Overlay extends React.Component {
     visible: PropTypes.bool,
     closeOnTouchOutside: PropTypes.bool,
     onClose: PropTypes.func,
-    onShow: PropTypes.func,
     containerStyle: PropTypes.object,
     childrenWrapperStyle: PropTypes.object,
-    transparent: PropTypes.bool,
-    // android-specific
-    hardwareAccelerated: PropTypes.bool,
-    // ios-specific
-    onOrientationChange: PropTypes.func,
-    presentationStyle: PropTypes.oneOf(['fullScreen', 'pageSheet', 'formSheet', 'overFullScreen']),
-    supportedOrientations: PropTypes.arrayOf(PropTypes.oneOf(['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right'])),
   }
   static defaultProps = {
     children: null,
@@ -41,12 +33,6 @@ class Overlay extends React.Component {
     visible: false,
     closeOnTouchOutside: false,
     onClose: () => {},
-    onShow: () => {},
-    transparent: true,
-    hardwareAccelerated: Platform.OS === 'android' ? false : undefined,
-    presentationStyle: Platform.OS === 'ios' ? 'overFullScreen' : undefined,
-    supportedOrientations: Platform.OS === 'ios' ? ['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right'] : undefined,
-    onOrientationChange: Platform.OS === 'ios' ? () => {} : undefined,
   }
   componentWillReceiveProps (newProps) {
     this.setState({visible: newProps.visible});
