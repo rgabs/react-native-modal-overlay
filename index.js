@@ -1,12 +1,12 @@
 import React, {PropTypes} from 'react';
-import {Modal, Platform, TouchableWithoutFeedback, View} from 'react-native';
+import {Modal, TouchableWithoutFeedback, View} from 'react-native';
 
 const styles = {
   container: {
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(37, 8, 10, 0.78)'
+    backgroundColor: 'rgba(37, 8, 10, 0.78)',
   },
   innerContainer: {
     alignItems: 'center',
