@@ -49,12 +49,11 @@ class Overlay extends React.Component {
     const {animationType, closeOnTouchOutside, children, containerStyle, childrenWrapperStyle, ...extraProps} = this.props;
     return (
       <Modal
-        {...extraProps}
         animationType={animationType}
         transparent
         visible={this.state.visible}
         onRequestClose={this._hideModal}
-      >
+        {...extraProps}>
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
           <View style={[styles.container, containerStyle]}>
             <TouchableWithoutFeedback onPress={this._stopPropagation}>

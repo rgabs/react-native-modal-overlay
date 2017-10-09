@@ -1,6 +1,6 @@
 {
   "name": "react-native-modal-overlay",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An overlay component built using native Modal which can be invoked from anywhere in the component hierarchy.",
   "main": "index.js",
   "scripts": {
