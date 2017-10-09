@@ -6,7 +6,7 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(37, 8, 10, 0.78)'
+    backgroundColor: 'rgba(37, 8, 10, 0.78)',
   },
   innerContainer: {
     alignItems: 'center',
@@ -32,7 +32,7 @@ class Overlay extends React.Component {
     animationType: 'fade',
     visible: false,
     closeOnTouchOutside: false,
-    onClose: () => {}
+    onClose: () => {},
   }
   componentWillReceiveProps (newProps) {
     this.setState({visible: newProps.visible});
@@ -46,13 +46,15 @@ class Overlay extends React.Component {
   _stopPropagation = (e) => e.stopPropagation()
 
   render () {
-    const {animationType, closeOnTouchOutside, children, containerStyle, childrenWrapperStyle} = this.props;
+    const {animationType, closeOnTouchOutside, children, containerStyle, childrenWrapperStyle, ...extraProps} = this.props;
     return (
       <Modal
-          animationType={animationType}
-          transparent
-          visible={this.state.visible}
-          onRequestClose={this._hideModal}>
+        {...extraProps}
+        animationType={animationType}
+        transparent
+        visible={this.state.visible}
+        onRequestClose={this._hideModal}
+      >
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
           <View style={[styles.container, containerStyle]}>
             <TouchableWithoutFeedback onPress={this._stopPropagation}>
