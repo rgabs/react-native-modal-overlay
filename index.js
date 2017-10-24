@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Modal, TouchableWithoutFeedback, View} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
+const AnimatableTouchableWithoutFeedback = Animatable.createAnimatableComponent(TouchableWithoutFeedback);
 const styles = {
   container: {
     flex: 1,
@@ -13,7 +15,8 @@ const styles = {
     alignItems: 'center',
     backgroundColor: 'white',
     padding: 20,
-}};
+  }
+};
 
 class Overlay extends React.Component {
   state = {
@@ -22,18 +25,22 @@ class Overlay extends React.Component {
   static propTypes = {
     children: PropTypes.node,
     animationType: PropTypes.string,
+    easing: PropTypes.string,
     visible: PropTypes.bool,
     closeOnTouchOutside: PropTypes.bool,
     onClose: PropTypes.func,
     containerStyle: PropTypes.object,
     childrenWrapperStyle: PropTypes.object,
+    animationDuration: PropTypes.number,
   }
   static defaultProps = {
     children: null,
-    animationType: 'fade',
+    animationType: 'fadeIn',
+    easing: 'ease',
     visible: false,
     closeOnTouchOutside: false,
     onClose: () => {},
+    animationDuration: 500
   }
   componentWillReceiveProps (newProps) {
     this.setState({visible: newProps.visible});
@@ -47,22 +54,25 @@ class Overlay extends React.Component {
   _stopPropagation = (e) => e.stopPropagation()
 
   render () {
-    const {animationType, closeOnTouchOutside, children, containerStyle, childrenWrapperStyle, ...extraProps} = this.props;
+    const {animationType, closeOnTouchOutside, animationDuration, children,
+          containerStyle, childrenWrapperStyle, easing, ...extraProps} = this.props;
     return (
       <Modal
-        animationType={animationType}
+        animationType={'none'}
         transparent
         visible={this.state.visible}
         onRequestClose={this._hideModal}
         {...extraProps}>
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
-          <View style={[styles.container, containerStyle]}>
-            <TouchableWithoutFeedback onPress={this._stopPropagation}>
+          <Animatable.View animation='fadeIn' duration={animationDuration} easing={easing}
+              useNativeDriver style={[styles.container, containerStyle]}>
+            <AnimatableTouchableWithoutFeedback animation={animationType} easing={easing}
+              duration={animationDuration} useNativeDriver onPress={this._stopPropagation}>
               <View style={[styles.innerContainer, childrenWrapperStyle]}>
                 {children}
               </View>
-            </TouchableWithoutFeedback>
-          </View>
+            </AnimatableTouchableWithoutFeedback>
+          </Animatable.View>
         </TouchableWithoutFeedback>
       </Modal>
     );

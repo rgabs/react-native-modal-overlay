@@ -1,6 +1,6 @@
 {
-  "name": "react-native-modal-overlay",
-  "version": "1.0.4",
+  "name": "react-native-modal-overlay-test",
+  "version": "1.2.0",
   "description": "An overlay component built using native Modal which can be invoked from anywhere in the component hierarchy.",
   "main": "index.js",
   "scripts": {
@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/rgabs/react-native-modal-overlay.git/issues"
   },
-  "homepage": "https://github.com/rgabs/react-native-modal-overlay.git#readme"
+  "homepage": "https://github.com/rgabs/react-native-modal-overlay.git#readme",
+  "dependencies": {
+    "react-native-animatable": "^1.2.4"
+  }
 }

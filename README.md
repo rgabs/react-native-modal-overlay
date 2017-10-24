@@ -14,12 +14,19 @@ NPM URL- [https://www.npmjs.com/package/react-native-modal-overlay](https://www.
 ![Full GIF](./gifs/demo.gif "Full GIF")
 
 ## Props
-- animationType: Animation Type for modal/overlay. Can be `fade` or `slide`.
-- visible: sets modal visibility. Type: `Boolean`
-- closeOnTouchOutside: If modal should close on touching outside the child component. Type: `Boolean`
-- onClose: Function to be called on close.
-- containerStyle: Style for the Overlay container. Type: `Object`
-- childrenWrapperStyle: Style for children container. Type: `Object`
+
+This module accepts the following props:
+
+| Prop   |Explanation| Default Value      |Type |
+|----------|:------------------|:--------------|:--------------|
+|`animationType`|Animation Type for modal/overlay. Can be any of the animations provided by [react-native-animatable](https://github.com/oblador/react-native-animatable). Example: `fadeInUp` `zoomIn`, `bounceIn`, `flipInX`, `lightSpeedIn`, etc.|'fadeIn'|string|
+|`easing`|Timing function for the animation provided by [react-native-animatable](https://github.com/oblador/react-native-animatable)|'ease'|string|
+|`visible`|Sets modal visibility|false|Boolean|
+|`closeOnTouchOutside`|If modal should close on touching outside the child component|false|Boolean|
+|`onClose`|Function to be called on close.|noop|Function|
+|`containerStyle`|Style for the Overlay container.|{}|Object|
+|`childrenWrapperStyle`| Style for children container.|{}|Object|
+
 
 ## Installation
 `npm install react-native-modal-overlay --save` or if you are using Yarn, `yarn add react-native-modal-overlay`
@@ -29,9 +36,10 @@ NPM URL- [https://www.npmjs.com/package/react-native-modal-overlay](https://www.
 import Overlay from 'react-native-modal-overlay';
 
 <Overlay visible={this.state.modalVisible}
-      closeOnTouchOutside animationType="fade"
+      closeOnTouchOutside animationType="zoomIn"
       containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
-      childrenWrapperStyle={{backgroundColor: '#eee'}} >
+      childrenWrapperStyle={{backgroundColor: '#eee'}}
+      animationDuration={500}>
     ...
     <Text>Some Modal Content</Text>
     ...
