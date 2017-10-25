@@ -21,10 +21,13 @@ const styles = {
 class Overlay extends React.Component {
   state = {
     visible: this.props.visible,
+    animationType: this.props.animationType,
+    overlayAnimationType: 'fadeIn'
   };
   static propTypes = {
     children: PropTypes.node,
     animationType: PropTypes.string,
+    animationOutType: PropTypes.string,
     easing: PropTypes.string,
     visible: PropTypes.bool,
     closeOnTouchOutside: PropTypes.bool,
@@ -36,6 +39,7 @@ class Overlay extends React.Component {
   static defaultProps = {
     children: null,
     animationType: 'fadeIn',
+    animationOutType: 'fadeOut',
     easing: 'ease',
     visible: false,
     closeOnTouchOutside: false,
@@ -43,30 +47,34 @@ class Overlay extends React.Component {
     animationDuration: 500
   }
   componentWillReceiveProps (newProps) {
-    this.setState({visible: newProps.visible});
+    this.setState({visible: newProps.visible, animationType: newProps.animationType});
   }
 
   _hideModal = () => {
-    this.setState({visible: false});
-    this.props.onClose();
+    const {animationOutType, animationDuration, onClose} = this.props;
+    this.setState({animationType: animationOutType, overlayAnimationType: animationOutType});
+    let timer = setTimeout(() => {
+      onClose();
+      clearTimeout(timer);
+      this.setState({overlayAnimationType: 'fadeIn'});
+    }, animationDuration - 100);
   }
 
   _stopPropagation = (e) => e.stopPropagation()
 
   render () {
-    const {animationType, closeOnTouchOutside, animationDuration, children,
+    const {closeOnTouchOutside, animationDuration, children,
           containerStyle, childrenWrapperStyle, easing, ...extraProps} = this.props;
     return (
       <Modal
-        animationType={'none'}
         transparent
         visible={this.state.visible}
         onRequestClose={this._hideModal}
-        {...extraProps}>
+        {...extraProps} animationType='none'>
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
-          <Animatable.View animation='fadeIn' duration={animationDuration} easing={easing}
+          <Animatable.View animation={this.state.overlayAnimationType} duration={animationDuration} easing={easing}
               useNativeDriver style={[styles.container, containerStyle]}>
-            <AnimatableTouchableWithoutFeedback animation={animationType} easing={easing}
+            <AnimatableTouchableWithoutFeedback animation={this.state.animationType} easing={easing}
               duration={animationDuration} useNativeDriver onPress={this._stopPropagation}>
               <View style={[styles.innerContainer, childrenWrapperStyle]}>
                 {children}
