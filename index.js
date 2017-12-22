@@ -25,13 +25,13 @@ class Overlay extends React.Component {
     overlayAnimationType: 'fadeIn'
   };
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     animationType: PropTypes.string,
     animationOutType: PropTypes.string,
     easing: PropTypes.string,
-    visible: PropTypes.bool,
+    visible: PropTypes.bool.isRequired,
     closeOnTouchOutside: PropTypes.bool,
-    onClose: PropTypes.func,
+    onClose: PropTypes.func.isRequired,
     containerStyle: PropTypes.object,
     childrenWrapperStyle: PropTypes.object,
     animationDuration: PropTypes.number,
