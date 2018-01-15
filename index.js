@@ -32,8 +32,8 @@ class Overlay extends React.Component {
     visible: PropTypes.bool.isRequired,
     closeOnTouchOutside: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
-    containerStyle: PropTypes.object,
-    childrenWrapperStyle: PropTypes.object,
+    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    childrenWrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     animationDuration: PropTypes.number,
   }
   static defaultProps = {
