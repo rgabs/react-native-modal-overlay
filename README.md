@@ -1,6 +1,8 @@
 # react-native-modal-overlay
 An overlay component built using native Modal which can be invoked from anywhere in the component hierarchy.
 
+[![https://nodei.co/npm/react-native-modal-overlay.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-native-modal-overlay.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-native-modal-overlay)
+
 NPM URL- [https://www.npmjs.com/package/react-native-modal-overlay](https://www.npmjs.com/package/react-native-modal-overlay)
 ## Features
 - Unlike other modal/overlay components, it can be triggered from anywhere in the component hierarchy since it is using react-native Modal.
