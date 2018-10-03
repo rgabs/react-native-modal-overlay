@@ -70,6 +70,7 @@ class Overlay extends React.Component {
         transparent
         visible={this.state.visible}
         onRequestClose={this._hideModal}
+        onDismiss={this._hideModal}
         {...extraProps} animationType='none'>
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
           <Animatable.View animation={this.state.overlayAnimationType} duration={animationDuration} easing={easing}
