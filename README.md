@@ -38,7 +38,8 @@ This module accepts the following props:
 import Overlay from 'react-native-modal-overlay';
 
 <Overlay visible={this.state.modalVisible}
-      closeOnTouchOutside animationType="zoomIn"
+      closeOnTouchOutside={true}
+      animationType="zoomIn"
       containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
       childrenWrapperStyle={{backgroundColor: '#eee'}}
       animationDuration={500}>
