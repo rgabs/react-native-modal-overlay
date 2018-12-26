@@ -28,6 +28,7 @@ This module accepts the following props:
 |`onClose`|Function to be called on close.|noop|Function|
 |`containerStyle`|Style for the Overlay container.|{}|Object|
 |`childrenWrapperStyle`| Style for children container.|{}|Object|
+|`accessible`| Whether internal components should be declared as accessible.|true|Boolean|
 
 
 ## Installation
