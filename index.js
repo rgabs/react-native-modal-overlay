@@ -35,6 +35,7 @@ class Overlay extends React.Component {
     containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     childrenWrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     animationDuration: PropTypes.number,
+    accessible: PropTypes.bool,
   }
   static defaultProps = {
     children: null,
@@ -44,7 +45,8 @@ class Overlay extends React.Component {
     visible: false,
     closeOnTouchOutside: false,
     onClose: () => {},
-    animationDuration: 500
+    animationDuration: 500,
+    accessible: true,
   }
   componentWillReceiveProps (newProps) {
     this.setState({visible: newProps.visible, animationType: newProps.animationType});
@@ -64,6 +66,7 @@ class Overlay extends React.Component {
 
   render () {
     const {closeOnTouchOutside, animationDuration, children,
+          accessible,
           containerStyle, childrenWrapperStyle, easing, ...extraProps} = this.props;
     return (
       <Modal
@@ -72,10 +75,10 @@ class Overlay extends React.Component {
         onRequestClose={this._hideModal}
         onDismiss={this._hideModal}
         {...extraProps} animationType='none'>
-        <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null}>
+        <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null} accessible={accessible}>
           <Animatable.View animation={this.state.overlayAnimationType} duration={animationDuration} easing={easing}
               useNativeDriver style={[styles.container, containerStyle]}>
-            <AnimatableTouchableWithoutFeedback animation={this.state.animationType} easing={easing}
+            <AnimatableTouchableWithoutFeedback accessible={accessible} animation={this.state.animationType} easing={easing}
               duration={animationDuration} useNativeDriver onPress={this._stopPropagation}>
               <View style={[styles.innerContainer, childrenWrapperStyle]}>
                 {children}
