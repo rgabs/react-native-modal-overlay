@@ -46,8 +46,9 @@ class Overlay extends React.Component {
     onClose: () => {},
     animationDuration: 500
   }
-  componentWillReceiveProps (newProps) {
-    this.setState({visible: newProps.visible, animationType: newProps.animationType});
+
+  static getDerivedStateFromProps(props, state) {
+    return { visible: props.visible, animationType: props.animationType };
   }
 
   _hideModal = () => {
