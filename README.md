@@ -48,7 +48,7 @@ export default class OverlayExample extends Component {
   
   render() {
     return (
-        <Overlay visible={this.state.modalVisible} onClose={this.onClose}>
+        <Overlay visible={this.state.modalVisible} onClose={this.onClose} closeOnTouchOutside>
           <Text>Some Modal Content</Text>
         </Overlay>
     );
