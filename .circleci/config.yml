@@ -19,5 +19,13 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run:
           name: Publish package
-          command: npm publish
-
+          command: |
+            LIVE_VERSION=`npm show react-native-modal-overlay version`
+            PACKAGE_VERSION=$(cat package.json \
+              | grep version \
+              | head -1 \
+              | awk -F: '{ print $2 }' \
+              | sed 's/[",]//g' \
+              | tr -d '[[:space:]]')
+            dpkg --compare-versions "$LIVE_VERSION" "gt" "$PACKAGE_VERSION"
+            if [ $? -eq "0" ]; then npm publish; else echo "Not publishing since version hasn't increased"; fi
