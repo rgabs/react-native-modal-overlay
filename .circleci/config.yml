@@ -20,10 +20,12 @@ jobs:
       - run:
           name: Publish package
           command: |
-            LIVE_VERSION=`npm show react-native-modal-overlay version`
-            PACKAGE_VERSION=`node -p "require('./package.json').version"`
-            echo "before LIVE_VERSION:: $LIVE_VERSION ;; PACKAGE_VERSION:: $PACKAGE_VERSION"
-            dpkg --compare-versions "$LIVE_VERSION" "gt" "$PACKAGE_VERSION"
-            echo "LIVE_VERSION:: $LIVE_VERSION ;; PACKAGE_VERSION:: $PACKAGE_VERSION"
-            if [ $? -eq "0" ]; then npm publish; else echo "Not publishing since version hasn't increased"; fi
-            exit 0
+             LIVE_VERSION=`npm show react-native-modal-overlay version`
+              PACKAGE_VERSION=$(cat package.json \
+                | grep version \
+                | head -1 \
+                | awk -F: '{ print $2 }' \
+                | sed 's/[",]//g' \
+                | tr -d '[[:space:]]')
+              function version { echo "$@" | gawk -F. '{ printf("%03d%03d%03d\n", $1,$2,$3); }'; }
+              if [ "$(version "$LIVE_VERSION")" -gt "$(version "$PACKAGE_VERSION")" ]; then npm publish; else echo "Not publishing since version hasn't increased"; fi
