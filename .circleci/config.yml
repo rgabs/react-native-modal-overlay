@@ -21,11 +21,6 @@ jobs:
           name: Publish package
           command: |
             LIVE_VERSION=`npm show react-native-modal-overlay version`
-            PACKAGE_VERSION=$(cat package.json \
-              | grep version \
-              | head -1 \
-              | awk -F: '{ print $2 }' \
-              | sed 's/[",]//g' \
-              | tr -d '[[:space:]]')
+            PACKAGE_VERSION=`node -p "require('./package.json').version"`
             function ver { printf "%03d%03d%03d%03d" $(echo "$1" | tr '.' ' '); }
             if [ $(ver "$LIVE_VERSION") -lt $(ver "$PACKAGE_VERSION") ]; then npm publish; else echo "Not publishing since version hasn't increased"; fi
