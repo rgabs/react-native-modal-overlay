@@ -34,22 +34,67 @@ This module accepts the following props:
 ## Installation
 `npm install react-native-modal-overlay --save` or if you are using Yarn, `yarn add react-native-modal-overlay`
 
-## Example Usage
-```
+## Examples:
+
+### Simple usage with default props
+```js
+import React, { Component} from 'react';
 import Overlay from 'react-native-modal-overlay';
 
-<Overlay visible={this.state.modalVisible}
-      closeOnTouchOutside={true}
-      animationType="zoomIn"
-      containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
-      childrenWrapperStyle={{backgroundColor: '#eee'}}
-      animationDuration={500}>
-    ...
-    <Text>Some Modal Content</Text>
-    ...
-</Overlay>
-
+export default class OverlayExample extends Component {
+  state = {
+    modalVisible: true, 
+  }
+  
+  onClose = () => this.setState({ modalVisible: false});
+  
+  render() {
+    return (
+        <Overlay visible={this.state.modalVisible} onClose={this.onClose} closeOnTouchOutside>
+          <Text>Some Modal Content</Text>
+        </Overlay>
+    );
+  }
+}
 ```
+
+### Complex usage with [render props](https://reactjs.org/docs/render-props.html)
+
+Use case: For Example you have a cross button inside your modal and you want to close the modal when the button is pressed. This can be done by calling hideModal argument in the [render props](https://reactjs.org/docs/render-props.html) instead of calling `onClose`. Refer to the example below:
+
+```js
+import React, { Component, Fragment} from 'react';
+import Overlay from 'react-native-modal-overlay';
+
+export default class OverlayExample extends Component {
+  state = {
+    modalVisible: true, 
+  }
+  
+  onClose = () => this.setState({ modalVisible: false});
+  
+  render() {
+    return (
+      <Overlay visible={this.state.modalVisible} onClose={this.onClose} closeOnTouchOutside
+        animationType="zoomIn" containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
+        childrenWrapperStyle={{backgroundColor: '#eee'}}
+        animationDuration={500}>
+        {
+          (hideModal, overlayState) => (
+            <Fragment>
+              <Text>Some Modal Content</Text>
+              <Text onPress={hideModal}>Close</Text>
+            </Fragment>
+          )
+        }
+      </Overlay>
+    );
+  }
+}
+```
+
+Note that the whole `hideModal` and `internal state` of the component is being passed as arguments to the render prop.
+
 
 Example Project URL: [https://github.com/rgabs/react-native-modal-overlay-example](https://github.com/rgabs/react-native-modal-overlay-example)
 

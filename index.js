@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Modal, TouchableWithoutFeedback, View} from 'react-native';
+import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 const AnimatableTouchableWithoutFeedback = Animatable.createAnimatableComponent(TouchableWithoutFeedback);
@@ -25,7 +25,7 @@ class Overlay extends React.Component {
     overlayAnimationType: 'fadeIn'
   };
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
     animationType: PropTypes.string,
     animationOutType: PropTypes.string,
     easing: PropTypes.string,
@@ -44,30 +44,32 @@ class Overlay extends React.Component {
     easing: 'ease',
     visible: false,
     closeOnTouchOutside: false,
-    onClose: () => {},
+    onClose: () => { },
     animationDuration: 500,
     accessible: true,
   }
-  componentWillReceiveProps (newProps) {
-    this.setState({visible: newProps.visible, animationType: newProps.animationType});
+
+  static getDerivedStateFromProps(props) {
+    return { visible: props.visible, animationType: props.animationType };
   }
 
   _hideModal = () => {
-    const {animationOutType, animationDuration, onClose} = this.props;
-    this.setState({animationType: animationOutType, overlayAnimationType: animationOutType});
+    const { animationOutType, animationDuration, onClose } = this.props;
+    this.setState({ animationType: animationOutType, overlayAnimationType: animationOutType });
     let timer = setTimeout(() => {
       onClose();
       clearTimeout(timer);
-      this.setState({overlayAnimationType: 'fadeIn'});
+      this.setState({ overlayAnimationType: 'fadeIn' });
     }, animationDuration - 100);
   }
 
   _stopPropagation = (e) => e.stopPropagation()
 
-  render () {
-    const {closeOnTouchOutside, animationDuration, children,
-          accessible,
-          containerStyle, childrenWrapperStyle, easing, ...extraProps} = this.props;
+
+  render() {
+    const { closeOnTouchOutside, animationDuration, children,
+          accessible, 
+      containerStyle, childrenWrapperStyle, easing, ...extraProps } = this.props;
     return (
       <Modal
         transparent
@@ -77,11 +79,12 @@ class Overlay extends React.Component {
         {...extraProps} animationType='none'>
         <TouchableWithoutFeedback onPress={closeOnTouchOutside ? this._hideModal : null} accessible={accessible}>
           <Animatable.View animation={this.state.overlayAnimationType} duration={animationDuration} easing={easing}
-              useNativeDriver style={[styles.container, containerStyle]}>
+            useNativeDriver style={[styles.container, containerStyle]}>
             <AnimatableTouchableWithoutFeedback accessible={accessible} animation={this.state.animationType} easing={easing}
               duration={animationDuration} useNativeDriver onPress={this._stopPropagation}>
               <View style={[styles.innerContainer, childrenWrapperStyle]}>
-                {children}
+                {children instanceof Function ? children(this._hideModal, this.state) : children}
+                {/* Passing this reference in render prop so that the parent component can access all the children's methods */}
               </View>
             </AnimatableTouchableWithoutFeedback>
           </Animatable.View>
