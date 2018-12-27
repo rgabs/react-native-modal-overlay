@@ -4,7 +4,10 @@
 #
 version: 2
 jobs:
-  build:
+  deploy:
+    branches:
+        only:
+          - master
     docker:
       - image: circleci/node:latest
     steps:
@@ -13,7 +16,7 @@ jobs:
           at: ~/repo
       - run:
           name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken==$NPM_TOKEN" > ~/repo/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish package
           command: npm publish
