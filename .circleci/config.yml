@@ -5,8 +5,8 @@
 version: 2
 jobs:
   deploy:
-    <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
           at: ~/repo
       - run:
