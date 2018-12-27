@@ -7,7 +7,7 @@ jobs:
   build:
     branches:
         only:
-          - feature/CI
+          - master
     docker:
       - image: circleci/node:latest
     steps:
