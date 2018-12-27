@@ -4,7 +4,9 @@
 #
 version: 2
 jobs:
-  deploy:
+  build:
+    docker:
+      - image: circleci/node:latest
     steps:
       - checkout
       - attach_workspace:
