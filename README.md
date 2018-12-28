@@ -1,6 +1,7 @@
 # react-native-modal-overlay ![alt text](https://img.shields.io/npm/dm/react-native-modal-overlay.svg)
 An overlay component built using native Modal which can be invoked from anywhere in the component hierarchy.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7c7f2d9b0b2f4ad9b7528519142f08cf)](https://app.codacy.com/app/rgabs/react-native-modal-overlay?utm_source=github.com&utm_medium=referral&utm_content=rgabs/react-native-modal-overlay&utm_campaign=Badge_Grade_Dashboard)
 [![https://nodei.co/npm/react-native-modal-overlay.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-native-modal-overlay.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-native-modal-overlay)
 
 NPM URL- [https://www.npmjs.com/package/react-native-modal-overlay](https://www.npmjs.com/package/react-native-modal-overlay)
