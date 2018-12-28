@@ -60,7 +60,7 @@ export default class OverlayExample extends Component {
 
 ### Complex usage with [render props](https://reactjs.org/docs/render-props.html)
 
-Use case: For Example you have a cross button inside your modal and you want to close the modal when the button is pressed. This can be done by calling hideModal argument in the [render props](https://reactjs.org/docs/render-props.html) instead of calling `onClose`. Refer to the example below:
+__Use case:__ For Example you have a cross button inside your modal and you want to close the modal when the button is pressed. This can be done by calling hideModal argument in the [render props](https://reactjs.org/docs/render-props.html) instead of calling `onClose`. Refer to the example below:
 
 ```js
 import React, { Component, Fragment} from 'react';
