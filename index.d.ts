@@ -1,1 +1,3 @@
-declare module 'react-native-modal-overlay'
+declare module 'react-native-modal-overlay'{
+    
+}
