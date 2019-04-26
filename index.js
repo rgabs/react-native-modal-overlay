@@ -9,7 +9,7 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'rgba(37, 8, 10, 0.78)',
+    backgroundColor: 'rgba(0,0,0,.78)',
   },
   innerContainer: {
     alignItems: 'center',
